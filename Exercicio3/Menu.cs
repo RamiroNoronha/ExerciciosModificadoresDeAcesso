@@ -30,17 +30,9 @@ namespace Exercicio3
             int mes = int.Parse(Console.ReadLine());
             Console.WriteLine("Digite o ano: ");
             int ano = int.Parse(Console.ReadLine());
-            try
-            {
                 data = new Data(dia, mes, ano);
                 return data;
-            }
-            catch (ArgumentException e)
-            {
-                Console.WriteLine("Parametro com erro: " + e.ParamName);
-                Console.WriteLine(e.Message);
-            }
-            throw new Exception("Erro ao Criar data no método MenuCriacaoData de Menu");
+  
         }
 
         public static Data ComparacaoEntreDatas(Data data1, Data data2)

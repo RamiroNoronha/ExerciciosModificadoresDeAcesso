@@ -14,32 +14,22 @@ namespace Exercicio3
 
         public Data(int dia, int mes, int ano)
         {
-            if (VerificarAno(ano))
-            {
-                Ano = ano;
-            }
-            if (VerificarMes(mes))
-            {
-                Mes = mes;
-            }
-            if (VerificarDia(dia))
-            {
-                Dia = dia;
-            }
-
+            VerificarAno(ano);
+            AtribuirMes(mes);
+            AtribuirDia(dia);
         }
 
-        public bool VerificarMes(int mes)
+        public void AtribuirMes(int mes)
         {
             if(mes < 0 || mes > 12)//Verificação se o mês pode existir
             {
                 throw new ArgumentException("Erro na passagem do parametro mes", nameof(mes));
             }
-            
-            return true;
+
+            Mes = mes;
         }
 
-        public bool VerificarDia(int dia)
+        public void AtribuirDia(int dia)
         {
             if(dia < 0 || dia > 31)//Verificação se o dia pode existir
             {
@@ -52,41 +42,41 @@ namespace Exercicio3
                 {
                     if(dia > 29)//Fevereiro ano bissexto
                     {
-                        throw new ArgumentException("Como o ano é bissexto, fevereiro possui no máximo 29 dias", nameof(dia));
+                        throw new DataException(29, Mes);
                     }
-                    
-                    return true;
+
+                    Dia = dia;
                 }
                 else
                 {
                     if(dia > 28) //Fevereiro não ano bissexto
                     {
-                        throw new ArgumentException("Esso ano não é bissexto, portanto fevereiro possui no máximo 28 dias", nameof(dia));
+                        throw new DataException(29, Mes);
                     }
-                    return true;
+                    Dia = dia;
                 }
             }
             else if((Mes < 8 && Mes%2 == 1) || (Mes>7 && Mes%2 == 0)) //Meses de 31 dias
             {
-                return true;
+                Dia = dia;
             }
             else
             {
                 if(dia > 30)
                 {
-                    throw new ArgumentException("Esso mes possui no máximo 30 dias", nameof(dia)); //Meses de 30 dias
+                    throw new DataException(30, Mes); //Meses de 30 dias
                 }
-                return true;
+                Dia = dia;
             }
         }
 
-        public bool VerificarAno(int ano)
+        public void VerificarAno(int ano)
         {
             if(ano < 1)
             {
                 throw new ArgumentException("O ano não pode ser 0 ou negativo", nameof(ano));
             }
-            return true;
+            Ano = ano;
         }
 
         public void ImprimirData()
